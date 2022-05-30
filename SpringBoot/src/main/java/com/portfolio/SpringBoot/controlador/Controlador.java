@@ -184,5 +184,14 @@ public class Controlador {
      return proyectoServ.buscarProyecto(id);
    }
    
+    @RestController
+@RequestMapping("/api/v1.0")
+public class TimeController {
+    @GetMapping("/time")
+    @ResponseStatus(HttpStatus.OK)
+    public String getCurrentTime(){
+        return Instant.now().toString();
+    }
+   }
     
 }
