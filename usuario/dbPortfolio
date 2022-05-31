@@ -1,0 +1,75 @@
+create database portfolio;
+use portfolio;
+create table persona (
+id int primary key auto_increment,
+nombre varchar(50) not null,
+apellido varchar(50) not null,
+fecha_nacimiento varchar(50)
+);
+create table educacion (
+id int primary key auto_increment,
+id_persona int,
+nombre varchar(100),
+titulo varchar(100),
+desde varchar(50),
+hasta varchar(50)
+);
+create table experiencia (
+id int auto_increment primary key not null,
+empresa varchar(100),
+puesto varchar(100),
+desde varchar(50),
+hasta varchar(50),
+id_persona int
+);
+
+create table conocimiento (
+id int not null primary key auto_increment,
+id_persona int,
+tecnologia varchar(100),
+nivel varchar(50)
+);
+create table proyecto (
+id int not null primary key auto_increment,
+id_persona int,
+descripcion varchar(100),
+imagen varchar(100),
+repositorio varchar(100)
+);
+alter table proyecto 
+add constraint fk_proyecto foreign key (id_persona)
+references persona (id); 
+
+alter table conocimiento 
+add constraint fk_conocimiento foreign key (id_persona)
+references persona (id); 
+
+alter table educacion 
+add constraint fk_educacion foreign key (id_persona)
+references persona (id);
+
+alter table experiencia 
+add constraint fk_experiencia foreign key (id_persona)
+references persona (id);
+
+insert into persona (nombre,apellido,fecha_nacimiento)
+values('Antonio', 'Castro', '1983-10-03');
+
+insert into educacion (id_persona,nombre,titulo,desde,hasta)
+values (1,'ArgentinaPrograma','Full Stack Web Junior', '2021-11-01', '2022-05-31'),
+        (1,'Universidad de Ciencias Empresariales y Sociales','Tecnicatura universitaria en programacion de sistemas','2020-03-01','2022-12-01'),
+	(1,'Universidad Tecnológica Nacional','Diseño Web','2020-10-01','2020-12-31');
+		
+insert into experiencia (empresa,puesto,desde,hasta,id_persona)
+values ('Hospital Neuropsiquiatrico Moyano','Enfermero','2012-01-01','2022-03-24',1),
+	('Tapiceria de Estilo','Tapicero','2008','Actualidad',1),
+	('Supermercado COTO','Pescadero','2002','2007',1);
+
+insert into conocimiento(id_persona,tecnologia,nivel)
+values(1,'Angular','Junior'),(1,'Javascript','Junior'),(1,'MySQL','Junior'),(1,'Java','Junior'),(1,'HTML','Junior'),(1,'CSS','Junior'),
+(1,'Bootstrap','Junior');
+
+insert into proyecto(id_persona,descripcion,imagen,repositorio)
+values (1,'Juego de disparos y naves. Realizado con C++ y Allegro','../../../assets/images/proyecto_allegro.jpg','https://github.com/antonio-1983/TEF_UCES_2021/blob/main/codigo_juego'),
+	(1,'Pagina Web Tapiceria https://antonio-1983.github.io/proyecto_integrador','../../../assets/images/diseñoWeb.png','https://github.com/antonio-1983/proyecto_integrador/blob/main/index.html');
+
